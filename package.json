@@ -1,7 +1,7 @@
 {
-  "name": "probus-web-client",
-  "version": "0.1.0",
-  "private": true,
+  "name": "reamplify",
+  "version": "1.0.0",
+  "license": "MIT",
   "scripts": {
     "build": "react-app-rewired build",
     "eject": "react-scripts eject",

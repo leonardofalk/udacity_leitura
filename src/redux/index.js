@@ -3,7 +3,7 @@ import createSagaMiddleware from 'redux-saga';
 
 import { environment } from '../config/environment';
 import rootReducer from './reducers';
-import rootSaga from './sagas/';
+import rootSaga from './sagas';
 
 export default async () => {
   const middleware = [];
