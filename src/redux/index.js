@@ -1,5 +1,8 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import createSagaMiddleware from 'redux-saga';
+import { persistStore, persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
+import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2';
 
 import { environment } from '../config/environment';
 import rootReducer from './reducers';
@@ -20,7 +23,13 @@ export default async () => {
   middleware.push(sagaMiddleware);
   enhancers.push(applyMiddleware(...middleware));
 
-  const store = createStore(rootReducer, compose(...enhancers));
+  const store = createStore(persistReducer({
+    key: 'root',
+    stateReconciler: autoMergeLevel2,
+    storage,
+  }, rootReducer), compose(...enhancers));
+
+  persistStore(store);
 
   sagaMiddleware.run(rootSaga);
 
