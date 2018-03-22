@@ -1,3 +1,4 @@
+/* eslint-disable import/prefer-default-export */
 import Immutable from 'seamless-immutable';
 
 const { NODE_ENV } = process.env;
