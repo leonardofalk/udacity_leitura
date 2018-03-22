@@ -1,12 +1,14 @@
-import React, { Fragment } from 'react';
-import { Route } from 'react-router-dom';
+import React from 'react';
+import { Route, Switch } from 'react-router-dom';
 
-import Home from '../containers/Home';
+import AsyncComponent from '../components/AsyncComponent';
+
+const AsyncHome = AsyncComponent(() => import('../containers/Home'));
 
 const Routes = () => (
-  <Fragment>
-    <Route exact path="/" component={Home} />
-  </Fragment>
+  <Switch>
+    <Route exact path="/" component={AsyncHome} />
+  </Switch>
 );
 
 export default Routes;
