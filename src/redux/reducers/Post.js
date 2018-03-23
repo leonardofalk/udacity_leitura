@@ -1,6 +1,3 @@
----
-to: src/redux/reducers/<%= NAME_CAMEL = name.replace(/\b\w/g, l => l.toUpperCase()) %>.js
----
 import { createReducer, createActions } from 'reduxsauce';
 import Immutable from 'seamless-immutable';
 
@@ -12,9 +9,9 @@ export const INITIAL_STATE = Immutable({
 });
 
 const { Types, Creators } = createActions({
-  <%= NAME_LOWERCASE = name.toLowerCase() %>Request: ['data'],
-  <%= NAME_LOWERCASE %>Success: ['payload'],
-  <%= NAME_LOWERCASE %>Failure: null,
+  postRequest: ['data'],
+  postSuccess: ['payload'],
+  postFailure: null,
 });
 
 export const CustomTypes = Types;
@@ -33,7 +30,7 @@ export const failure = state => (
 );
 
 export const reducer = createReducer(INITIAL_STATE, {
-  [Types.<%= NAME_UPPERCASE = name.toUpperCase() %>_REQUEST]: request,
-  [Types.<%= NAME_UPPERCASE %>_SUCCESS]: success,
-  [Types.<%= NAME_UPPERCASE %>_FAILURE]: failure,
+  [Types.POST_REQUEST]: request,
+  [Types.POST_SUCCESS]: success,
+  [Types.POST_FAILURE]: failure,
 });

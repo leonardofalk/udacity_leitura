@@ -29,15 +29,25 @@ const api = create({
 });
 
 const getCategories = async () => {
-  const { data: { categories = [] } } = await api.get('categories');
+  try {
+    const { data } = await api.get('categories');
+    const categories = data.categories.map(mapApiCategoryToProps);
 
-  return categories.map(mapApiCategoryToProps);
+    return { ok: true, payload: { categories } };
+  } catch (error) {
+    return { ok: false, error };
+  }
 };
 
 const getPosts = async () => {
-  const { data } = await api.get('posts');
+  try {
+    const { data } = await api.get('posts');
+    const posts = data.map(mapApiPostToProps);
 
-  return data.map(mapApiPostToProps);
+    return { ok: true, payload: { posts } };
+  } catch (error) {
+    return { ok: false, error };
+  }
 };
 
 const getPost = async (postId) => {

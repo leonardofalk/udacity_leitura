@@ -11,11 +11,11 @@ export function* get<%= NAME_CAMEL %>(action) {
   const response = yield call(<%= NAME_CAMEL %>API.fetch, data);
 
   if (response.ok) {
-    yield put(Actions.<%= NAME_CAMEL %>Success(response.data));
+    yield put(Actions.<%= NAME_LOWERCASE = name.toLowerCase() %>Success({ payload: response.data }));
   } else {
-    yield put(Actions.<%= NAME_CAMEL %>Failure());
+    yield put(Actions.<%= NAME_LOWERCASE %>Failure());
   }
-};
+}
 
 export default function* <%= name %>Saga() {
   yield takeEvery('<%= NAME_CAMEL.toUpperCase() %>_REQUEST', get<%= NAME_CAMEL %>);
