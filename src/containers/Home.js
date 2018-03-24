@@ -13,6 +13,7 @@ import PostCard from '../components/PostCard';
 import PostActions from '../redux/reducers/Post';
 import CategoryActions from '../redux/reducers/Category';
 import VoteActions from '../redux/reducers/Vote';
+import DeletePostActions from '../redux/reducers/DeletePost';
 
 class Home extends Component {
   state = {
@@ -30,7 +31,9 @@ class Home extends Component {
 
   _renderPosts = () => {
     const { categorySelected } = this.state;
-    const { posts } = this.props;
+    const {
+      posts, onVoteUp, onVoteDown, deletePost,
+    } = this.props;
 
     const filteredPosts = (_.isEmpty(categorySelected)
       ? posts
@@ -41,8 +44,9 @@ class Home extends Component {
     return filteredPosts.map(postProps => (
       <PostCard
         {...postProps}
-        onVoteUp={this.props.onVoteUp(postProps)}
-        onVoteDown={this.props.onVoteDown(postProps)}
+        onVoteUp={onVoteUp(postProps)}
+        onVoteDown={onVoteDown(postProps)}
+        deletePost={deletePost(postProps)}
       />
     ));
   }
@@ -90,6 +94,7 @@ const mapDispatchToProps = dispatch => ({
   fetchCategories: () => dispatch(CategoryActions.categoryRequest()),
   onVoteUp: ({ id }) => () => dispatch(VoteActions.voteRequest({ id, option: 'upVote' })),
   onVoteDown: ({ id }) => () => dispatch(VoteActions.voteRequest({ id, option: 'downVote' })),
+  deletePost: ({ id }) => () => dispatch(DeletePostActions.deletePostRequest({ id })),
 });
 
 Home.getDerivedStateFromProps = (nextProps, prevState) => ({
@@ -102,6 +107,7 @@ Home.propTypes = {
   fetchCategories: PropTypes.func.isRequired,
   onVoteUp: PropTypes.func.isRequired,
   onVoteDown: PropTypes.func.isRequired,
+  deletePost: PropTypes.func.isRequired,
   categories: PropTypes.arrayOf(PropTypes.object),
   posts: PropTypes.arrayOf(PropTypes.object),
 };

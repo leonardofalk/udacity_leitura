@@ -33,7 +33,8 @@
     "redux": "^3.7.2",
     "redux-saga": "^0.16.0",
     "reduxsauce": "^0.7.0",
-    "seamless-immutable": "^7.1.3"
+    "seamless-immutable": "^7.1.3",
+    "uuid": "^3.2.1"
   },
   "devDependencies": {
     "@storybook/addon-actions": "^3.3.15",

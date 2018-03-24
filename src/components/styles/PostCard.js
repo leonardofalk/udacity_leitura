@@ -13,6 +13,7 @@ export default ({
   badge: {
     top: -30,
     right: -230,
+    backgroundColor: '#1890FF',
   },
   actionVoteDown: {
     transform: 'rotate(180deg)',

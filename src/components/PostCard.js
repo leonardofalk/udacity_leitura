@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Badge, Card, Icon } from 'antd';
+import { Badge, Card, Icon, Popconfirm } from 'antd';
 import { Link } from 'react-router-dom';
 
 import styles from './styles/PostCard';
@@ -14,6 +14,9 @@ const PostCard = props => (
       <Link to={`/posts/${props.id}/edit`}>
         <Icon type="edit" />
       </Link>,
+      <Popconfirm title="Are you sure?" okText="Yes" cancelText="No" onConfirm={props.deletePost}>
+        <Icon type="delete" />
+      </Popconfirm>,
       <Icon type="like-o" onClick={props.onVoteUp} />,
       <Icon type="like-o" style={styles.actionVoteDown} onClick={props.onVoteDown} />,
       <Link to={`/posts/${props.id}/comments/new`}>
@@ -25,7 +28,7 @@ const PostCard = props => (
   >
     <Badge count={parseInt(props.likeCount, 10)} style={styles.badge} showZero />
     <Card.Meta
-      title={props.title}
+      title={<b>{props.title}</b>}
       description={truncate(props.description, 200)}
       style={styles.metaCard}
     />
@@ -38,6 +41,7 @@ PostCard.propTypes = {
   description: PropTypes.string.isRequired,
   onVoteUp: PropTypes.func.isRequired,
   onVoteDown: PropTypes.func.isRequired,
+  deletePost: PropTypes.func.isRequired,
   loading: PropTypes.bool,
   likeCount: PropTypes.number,
   commentCount: PropTypes.number,

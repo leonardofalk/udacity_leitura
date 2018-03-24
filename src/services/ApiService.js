@@ -1,4 +1,5 @@
 import { create } from 'apisauce';
+import uuidV4 from 'uuid/v4';
 
 import { API_URL } from '../config/environment';
 import { mapApiPostToProps, mapApiCategoryToProps } from './TransformService';
@@ -60,7 +61,11 @@ const createPost = async props => api.post('/posts', Object.assign(props, {
   timestamp: Date.now(),
   voteScore: 1,
   deleted: false,
+  id: uuidV4(),
 }));
+
+const updatePost = async ({ id, title, body }) => api.put(`/posts/${id}`, { title, body });
+const deletePost = async ({ id }) => api.delete(`/posts/${id}`);
 
 const getPostComments = async (postId) => {
   const { data } = await api.get(`posts/${postId}/comments`);
@@ -80,6 +85,8 @@ const downVote = async ({ id }) => vote({ id, option: 'downVote' });
 
 export {
   createPost,
+  updatePost,
+  deletePost,
   getCategories,
   getPosts,
   getPost,

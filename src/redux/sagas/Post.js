@@ -1,4 +1,4 @@
-import { all, takeEvery, call, put } from 'redux-saga/effects';
+import { all, takeLatest, call, put } from 'redux-saga/effects';
 import Actions from '../reducers/Post';
 
 import { getPosts } from '../../services/ApiService';
@@ -16,7 +16,8 @@ export function* getPost(action) {
 
 export default function* postSaga() {
   yield all([
-    takeEvery('POST_REQUEST', getPost),
-    takeEvery('VOTE_SUCCESS', getPost),
+    takeLatest('POST_REQUEST', getPost),
+    takeLatest('VOTE_SUCCESS', getPost),
+    takeLatest('DELETE_POST_SUCCESS', getPost),
   ]);
 }
