@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { StrictMode } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 
@@ -6,11 +6,13 @@ import Root from './containers/Root';
 import createStore from './redux';
 
 const App = () => (
-  <Provider store={createStore()}>
-    <BrowserRouter>
-      <Root />
-    </BrowserRouter>
-  </Provider>
+  <StrictMode>
+    <Provider store={createStore()}>
+      <BrowserRouter>
+        <Root />
+      </BrowserRouter>
+    </Provider>
+  </StrictMode>
 );
 
 export default App;

@@ -10,4 +10,11 @@ export default ({
   metaCard: {
     textAlign: 'justify',
   },
+  badge: {
+    top: -30,
+    right: -230,
+  },
+  actionVoteDown: {
+    transform: 'rotate(180deg)',
+  },
 });

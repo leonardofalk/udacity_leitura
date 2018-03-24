@@ -74,6 +74,10 @@ const getPostWithComments = async (postId) => {
   return post;
 };
 
+const vote = async ({ id, option }) => api.post(`/posts/${id}`, { option });
+const upVote = async ({ id }) => vote({ id, option: 'upVote' });
+const downVote = async ({ id }) => vote({ id, option: 'downVote' });
+
 export {
   createPost,
   getCategories,
@@ -81,4 +85,7 @@ export {
   getPost,
   getPostComments,
   getPostWithComments,
+  vote,
+  downVote,
+  upVote,
 };
