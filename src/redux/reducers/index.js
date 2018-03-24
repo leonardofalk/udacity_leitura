@@ -3,10 +3,13 @@
 import { combineReducers } from 'redux';
 
 export default combineReducers({
-  post: require('./Post').reducer,
   category: require('./Category').reducer,
-  vote: require('./Vote').reducer,
-  postCreate: require('./PostCreate').reducer,
   deletepost: require('./DeletePost').reducer,
+  post: require('./Post').reducer,
+  postCreate: require('./PostCreate').reducer,
+  postFetch: require('./PostFetch').reducer,
+  postUpdate: require('./PostUpdate').reducer,
+  vote: require('./Vote').reducer,
+  redirect: require('./Redirect').reducer,
 
 });

@@ -74,14 +74,24 @@ const getPostComments = async (postId) => {
 };
 
 const getPostWithComments = async (postId) => {
-  const post = await getPost(postId);
-  post.comments = await getPostComments(postId);
-  return post;
+  try {
+    const postInfo = await getPost(postId);
+    const comments = await getPostComments(postId);
+    const post = { ...postInfo, comments };
+
+    return { ok: true, payload: { post } };
+  } catch (error) {
+    return { ok: false, error };
+  }
 };
 
 const vote = async ({ id, option }) => api.post(`/posts/${id}`, { option });
 const upVote = async ({ id }) => vote({ id, option: 'upVote' });
 const downVote = async ({ id }) => vote({ id, option: 'downVote' });
+
+const pushHistory = () => {
+  window.location.href = '/';
+};
 
 export {
   createPost,
@@ -95,4 +105,5 @@ export {
   vote,
   downVote,
   upVote,
+  pushHistory,
 };

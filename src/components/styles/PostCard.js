@@ -1,7 +1,10 @@
 export default ({
-  card: {
+  cardSmall: {
     width: 300,
     margin: 10,
+  },
+  cardBig: {
+    width: '50%',
   },
   actions: {
     display: 'flex',

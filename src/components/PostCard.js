@@ -9,7 +9,7 @@ import { truncate } from '../lib/StringUtils';
 const PostCard = props => (
   <Card
     loading={props.loading}
-    style={styles.card}
+    style={props.bigMode ? styles.cardBig : styles.cardSmall}
     actions={[
       <Link to={`/posts/${props.id}/edit`}>
         <Icon type="edit" />
@@ -27,11 +27,13 @@ const PostCard = props => (
       ]}
   >
     <Badge count={parseInt(props.likeCount, 10)} style={styles.badge} showZero />
-    <Card.Meta
-      title={<b>{props.title}</b>}
-      description={truncate(props.description, 200)}
-      style={styles.metaCard}
-    />
+    <Link to={`/posts/${props.id}`}>
+      <Card.Meta
+        title={<b>{props.title}</b>}
+        description={props.bigMode ? props.description : truncate(props.description, 200)}
+        style={styles.metaCard}
+      />
+    </Link>
   </Card>
 );
 
@@ -45,12 +47,14 @@ PostCard.propTypes = {
   loading: PropTypes.bool,
   likeCount: PropTypes.number,
   commentCount: PropTypes.number,
+  bigMode: PropTypes.bool,
 };
 
 PostCard.defaultProps = {
   loading: false,
   likeCount: 0,
   commentCount: 0,
+  bigMode: false,
 };
 
 export default PostCard;

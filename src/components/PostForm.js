@@ -36,7 +36,9 @@ class PostForm extends Component {
   }
 
   render = () => {
-    const { form, categories } = this.props;
+    const {
+      form, categories, category, author, body, title, editMode,
+    } = this.props;
     const { getFieldDecorator: decorator } = form;
     const { submitting } = this.state;
 
@@ -46,37 +48,35 @@ class PostForm extends Component {
           label="Title"
           labelCol={{ span: 5 }}
           wrapperCol={{ span: 12 }}
-          value={this.props.title}
         >
-          {decorator('title', { rules: [{ required: true, message: 'Please provide a title for the post.' }] })(<Input />)}
+          {decorator('title', { rules: [{ required: true, message: 'Please provide a title for the post.' }], initialValue: title })(<Input />)}
         </FormItem>
         <FormItem
           label="Body"
           labelCol={{ span: 5 }}
           wrapperCol={{ span: 12 }}
-          value={this.props.body}
         >
           {decorator('body', {
             rules: [{ required: true, message: 'Please provide a body for the post.' }],
+            initialValue: body,
           })(<Input.TextArea />)}
         </FormItem>
         <FormItem
           label="Author"
           labelCol={{ span: 5 }}
           wrapperCol={{ span: 12 }}
-          value={this.props.author}
         >
-          {decorator('author', { rules: [{ required: true, message: 'Please provide an author for the post.' }] })(<Input />)}
+          {decorator('author', { rules: [{ required: true, message: 'Please provide an author for the post.' }], initialValue: author })(<Input disabled={editMode} />)}
         </FormItem>
         <FormItem
           label="Category"
           labelCol={{ span: 5 }}
           wrapperCol={{ span: 12 }}
         >
-          {decorator('category', { rules: [{ required: true, message: 'Please select a category for the post.' }] })(<Select value={this.props.category}>
-            {categories.map(category => (
-              <Option key={category.id} value={category.id}>
-                {category.name}
+          {decorator('category', { rules: [{ required: true, message: 'Please select a category for the post.' }], initialValue: category })(<Select disabled={editMode}>
+            {categories.map(cat => (
+              <Option key={cat.id} value={cat.id}>
+                {cat.name}
               </Option>
                 ))}
           </Select>)}

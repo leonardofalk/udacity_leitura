@@ -64,7 +64,7 @@ class Home extends Component {
 
     return (
       <Row>
-        <Col xl={12}>
+        <Col>
           <Row style={styles.row}>
             <Col>
               <PostFilter categories={categories} onChange={this.onChangeFilter} />

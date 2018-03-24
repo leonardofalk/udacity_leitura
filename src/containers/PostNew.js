@@ -10,9 +10,7 @@ import CategoryActions from '../redux/reducers/Category';
 import PostCreateActions from '../redux/reducers/PostCreate';
 
 class PostNew extends Component {
-  state = {
-    redirect: false,
-  }
+  state = {}
 
   componentDidMount = () => {
     const { fetchCategories } = this.props;
@@ -21,12 +19,8 @@ class PostNew extends Component {
   }
 
   render = () => {
-    const { categories, redirect } = this.state;
-    const { createPost, history } = this.props;
-
-    if (redirect) {
-      history.push('/');
-    }
+    const { categories } = this.state;
+    const { createPost } = this.props;
 
     return (
       <Row>
@@ -36,6 +30,7 @@ class PostNew extends Component {
             editMode={false}
             categories={categories}
             createPost={createPost}
+            updatePost={() => null}
           />
         </Col>
       </Row>
@@ -46,7 +41,6 @@ class PostNew extends Component {
 PostNew.propTypes = {
   fetchCategories: PropTypes.func.isRequired,
   createPost: PropTypes.func.isRequired,
-  history: PropTypes.object.isRequired,
 };
 
 PostNew.getDerivedStateFromProps = (nextProps, prevState) => ({
@@ -56,7 +50,6 @@ PostNew.getDerivedStateFromProps = (nextProps, prevState) => ({
 
 const mapStateToProps = state => ({
   categories: _.has(state, 'category.payload.categories') ? state.category.payload.categories : [],
-  redirect: _.has(state, 'postCreate.payload.timestamp', 0) > 0,
 });
 
 const mapDispatchToProps = dispatch => ({
