@@ -7,5 +7,6 @@ export default ({
   row: {
     marginLeft: 10,
     marginTop: 10,
+    padding: 50,
   },
 });

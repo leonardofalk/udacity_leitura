@@ -8,7 +8,7 @@ export function* getVote(action) {
   const response = yield call(vote, data);
 
   if (response.ok) {
-    yield put(Actions.voteSuccess({ payload: response.data }));
+    yield put(Actions.voteSuccess(response.data));
   } else {
     yield put(Actions.voteFailure());
   }

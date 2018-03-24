@@ -51,8 +51,8 @@ const getPosts = async () => {
   }
 };
 
-const getPost = async (postId) => {
-  const { data } = await api.get(`posts/${postId}`);
+const getPost = async (id) => {
+  const { data } = await api.get(`posts/${id}`);
 
   return mapApiPostToProps(data);
 };
@@ -73,10 +73,10 @@ const getPostComments = async (postId) => {
   return data;
 };
 
-const getPostWithComments = async (postId) => {
+const getPostWithComments = async ({ id }) => {
   try {
-    const postInfo = await getPost(postId);
-    const comments = await getPostComments(postId);
+    const postInfo = await getPost(id);
+    const comments = await getPostComments(id);
     const post = { ...postInfo, comments };
 
     return { ok: true, payload: { post } };

@@ -4,7 +4,7 @@ export default ({
     margin: 10,
   },
   cardBig: {
-    width: '50%',
+    width: '100%',
   },
   actions: {
     display: 'flex',
@@ -13,11 +13,17 @@ export default ({
   metaCard: {
     textAlign: 'justify',
   },
-  badge: {
+  badgeSmall: {
     top: -30,
     right: -230,
     backgroundColor: '#1890FF',
   },
+
+  badgeBig: {
+    backgroundColor: '#1890FF',
+    top: -35,
+  },
+
   actionVoteDown: {
     transform: 'rotate(180deg)',
   },

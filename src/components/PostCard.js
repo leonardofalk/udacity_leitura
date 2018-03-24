@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Badge, Card, Icon, Popconfirm } from 'antd';
+import { Badge, Card, Icon, Popconfirm, Tooltip } from 'antd';
 import { Link } from 'react-router-dom';
 
 import styles from './styles/PostCard';
@@ -11,25 +11,39 @@ const PostCard = props => (
     loading={props.loading}
     style={props.bigMode ? styles.cardBig : styles.cardSmall}
     actions={[
-      <Link to={`/posts/${props.id}/edit`}>
-        <Icon type="edit" />
-      </Link>,
-      <Popconfirm title="Are you sure?" okText="Yes" cancelText="No" onConfirm={props.deletePost}>
-        <Icon type="delete" />
-      </Popconfirm>,
-      <Icon type="like-o" onClick={props.onVoteUp} />,
-      <Icon type="like-o" style={styles.actionVoteDown} onClick={props.onVoteDown} />,
-      <Link to={`/posts/${props.id}/comments/new`}>
-        <Icon type="message" style={styles.actions}>
-          {props.commentCount}
-        </Icon>
-      </Link>,
-      ]}
+      <Tooltip title="Edit" placement="bottom">
+        <Link to={`/posts/${props.id}/edit`}>
+          <Icon type="edit" />
+        </Link>
+      </Tooltip>,
+      <Tooltip title="Delete" placement="bottom">
+        <Popconfirm title="Are you sure?" okText="Yes" cancelText="No" onConfirm={props.deletePost}>
+          <Icon type="delete" />
+        </Popconfirm>
+      </Tooltip>,
+      <Tooltip title="Vote Up" placement="bottom">
+        <Icon type="like-o" onClick={props.onVoteUp} />
+      </Tooltip>,
+      <Tooltip title="Vote Down" placement="bottom">
+        <Icon type="like-o" style={styles.actionVoteDown} onClick={props.onVoteDown} />
+      </Tooltip>,
+      <Tooltip title="Comment" placement="bottom">
+        <Link to={`/posts/${props.id}/comments/new`}>
+          <Icon type="message" style={styles.actions}>
+            {props.commentCount}
+          </Icon>
+        </Link>
+      </Tooltip>,
+    ]}
   >
-    <Badge count={parseInt(props.likeCount, 10)} style={styles.badge} showZero />
+    <Badge
+      showZero
+      count={parseInt(props.likeCount, 10)}
+      style={props.bigMode ? styles.badgeBig : styles.badgeSmall}
+    />
     <Link to={`/posts/${props.id}`}>
       <Card.Meta
-        title={<b>{props.title}</b>}
+        title={<h3>{props.title}</h3>}
         description={props.bigMode ? props.description : truncate(props.description, 200)}
         style={styles.metaCard}
       />

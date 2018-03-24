@@ -33,7 +33,7 @@ class PostShow extends Component {
 
     return (
       <Row>
-        <Col>
+        <Col style={styles.row}>
           <PostCard
             {...post}
             onVoteUp={onVoteUp(post)}
