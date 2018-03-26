@@ -85,9 +85,27 @@ const getPostWithComments = async ({ id }) => {
   }
 };
 
+const getComment = ({ id }) => api.get(`/comments/${id}`);
+
+const createComment = async props => api.post('/comments', Object.assign(props, {
+  timestamp: Date.now(),
+  id: uuidV4(),
+}));
+
+const updateComment = async ({ id, body }) => (
+  api.put(`/comments/${id}`, Object.assign({ body }, {
+    timestamp: Date.now(),
+  }))
+);
+
+const deleteComment = async ({ id }) => api.delete(`/comments/${id}`);
+
 const vote = async ({ id, option }) => api.post(`/posts/${id}`, { option });
 const upVote = async ({ id }) => vote({ id, option: 'upVote' });
 const downVote = async ({ id }) => vote({ id, option: 'downVote' });
+const voteComment = async ({ id, option }) => api.post(`/comments/${id}`, { option });
+const upVoteComment = async ({ id }) => voteComment({ id, option: 'upVote' });
+const downVoteComment = async ({ id }) => voteComment({ id, option: 'downVote' });
 
 const pushHistory = () => {
   window.location.href = '/';
@@ -102,6 +120,13 @@ export {
   getPost,
   getPostComments,
   getPostWithComments,
+  getComment,
+  createComment,
+  updateComment,
+  deleteComment,
+  voteComment,
+  upVoteComment,
+  downVoteComment,
   vote,
   downVote,
   upVote,

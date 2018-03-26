@@ -27,7 +27,7 @@ const PostCard = props => (
       <Tooltip title="Vote Down" placement="bottom">
         <Icon type="like-o" style={styles.actionVoteDown} onClick={props.onVoteDown} />
       </Tooltip>,
-      <Tooltip title="Comment" placement="bottom">
+      <Tooltip title="Add Comment" placement="bottom">
         <Link to={`/posts/${props.id}/comments/new`}>
           <Icon type="message" style={styles.actions}>
             {props.commentCount}
@@ -43,7 +43,12 @@ const PostCard = props => (
     />
     <Link to={`/posts/${props.id}`}>
       <Card.Meta
-        title={<h3>{props.title}</h3>}
+        title={
+          <div>
+            <h3>{props.title}</h3>
+            <small>by {props.author}</small>
+          </div>
+        }
         description={props.bigMode ? props.description : truncate(props.description, 200)}
         style={styles.metaCard}
       />
@@ -55,6 +60,7 @@ PostCard.propTypes = {
   id: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
+  author: PropTypes.string.isRequired,
   onVoteUp: PropTypes.func.isRequired,
   onVoteDown: PropTypes.func.isRequired,
   deletePost: PropTypes.func.isRequired,

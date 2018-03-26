@@ -9,4 +9,9 @@ export default ({
     marginTop: 10,
     padding: 50,
   },
+
+  comments: {
+    paddingLeft: 50,
+    paddingRight: 50,
+  },
 });

@@ -85,8 +85,8 @@ class Home extends Component {
 }
 
 const mapStateToProps = state => ({
-  categories: _.has(state, 'category.payload.categories') ? state.category.payload.categories : [],
-  posts: _.has(state, 'post.payload.posts') ? state.post.payload.posts : [],
+  categories: _.get(state, 'category.payload.categories', []),
+  posts: _.get(state, 'post.payload.posts', []),
 });
 
 const mapDispatchToProps = dispatch => ({

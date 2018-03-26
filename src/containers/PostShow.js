@@ -7,12 +7,15 @@ import _ from 'lodash';
 import styles from './styles/PostShow';
 import LoadingSpinner from '../components/LoadingSpinner';
 import PostCard from '../components/PostCard';
+import Comment from '../components/Comment';
 import PostFetchActions from '../redux/reducers/PostFetch';
 import CategoryActions from '../redux/reducers/Category';
 import VoteActions from '../redux/reducers/Vote';
 import DeletePostActions from '../redux/reducers/DeletePost';
 
 class PostShow extends Component {
+  state = {}
+
   componentDidMount = () => {
     const { fetchPost, match } = this.props;
 
@@ -41,6 +44,14 @@ class PostShow extends Component {
             deletePost={deletePost(post)}
             bigMode
           />
+        </Col>
+        <Col style={styles.comments}>
+          <h3>Comments</h3>
+          {_.isEmpty(post.comments)
+            ? <span>There are no comments for now.</span>
+            : post.comments.map((comment, key) => (
+              <Comment key={key} {...comment} style={styles.comment} />
+          ))}
         </Col>
       </Row>
     );
