@@ -13,6 +13,7 @@ import CategoryActions from '../redux/reducers/Category';
 import VoteActions from '../redux/reducers/Vote';
 import CommentVoteActions from '../redux/reducers/CommentVote';
 import DeletePostActions from '../redux/reducers/DeletePost';
+import DeleteCommentActions from '../redux/reducers/DeleteComment';
 
 class PostShow extends Component {
   state = {}
@@ -26,7 +27,8 @@ class PostShow extends Component {
   render = () => {
     const { post } = this.state;
     const {
-      onVoteUp, onVoteDown, deletePost, onCommentVoteUp, onCommentVoteDown,
+      onVoteUp, onVoteDown, deletePost,
+      onCommentVoteUp, onCommentVoteDown, deleteComment,
     } = this.props;
 
     if (_.isEmpty(post)) {
@@ -59,7 +61,7 @@ class PostShow extends Component {
                 style={styles.comment}
                 onVoteUp={onCommentVoteUp(comment)}
                 onVoteDown={onCommentVoteDown(comment)}
-                deleteComment={() => null}
+                deleteComment={deleteComment(comment)}
               />
           ))}
         </Col>
@@ -80,6 +82,7 @@ const mapDispatchToProps = dispatch => ({
   onCommentVoteUp: ({ id }) => () => dispatch(CommentVoteActions.commentVoteRequest({ id, option: 'upVote' })),
   onCommentVoteDown: ({ id }) => () => dispatch(CommentVoteActions.commentVoteRequest({ id, option: 'downVote' })),
   deletePost: ({ id }) => () => dispatch(DeletePostActions.deletePostRequest({ id })),
+  deleteComment: ({ id }) => () => dispatch(DeleteCommentActions.deleteCommentRequest({ id })),
 });
 
 PostShow.getDerivedStateFromProps = (nextProps, prevState) => ({
@@ -94,6 +97,7 @@ PostShow.propTypes = {
   onCommentVoteUp: PropTypes.func.isRequired,
   onCommentVoteDown: PropTypes.func.isRequired,
   deletePost: PropTypes.func.isRequired,
+  deleteComment: PropTypes.func.isRequired,
   post: PropTypes.object.isRequired,
   match: PropTypes.object.isRequired,
 };

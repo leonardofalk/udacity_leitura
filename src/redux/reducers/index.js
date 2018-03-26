@@ -7,6 +7,7 @@ export default combineReducers({
   commentCreate: require('./CommentCreate').reducer,
   commentUpdate: require('./CommentUpdate').reducer,
   commentVote: require('./CommentVote').reducer,
+  deletecomment: require('./DeleteComment').reducer,
   deletePost: require('./DeletePost').reducer,
   fetchComment: require('./FetchComment').reducer,
   post: require('./Post').reducer,

@@ -4,6 +4,7 @@ import CategorySaga from './Category';
 import CommentCreateSaga from './CommentCreate';
 import CommentUpdateSaga from './CommentUpdate';
 import CommentVoteSaga from './CommentVote';
+import DeleteCommentSaga from './DeleteComment';
 import DeletePostSaga from './DeletePost';
 import FetchCommentSaga from './FetchComment';
 import PostCreateSaga from './PostCreate';
@@ -15,12 +16,13 @@ import VoteSaga from './Vote';
 
 export default function* rootSaga() {
   yield all([
-    fork(CommentVoteSaga),
-    fork(CommentUpdateSaga),
-    fork(FetchCommentSaga),
     fork(CategorySaga),
     fork(CommentCreateSaga),
+    fork(CommentUpdateSaga),
+    fork(CommentVoteSaga),
+    fork(DeleteCommentSaga),
     fork(DeletePostSaga),
+    fork(FetchCommentSaga),
     fork(PostCreateSaga),
     fork(PostFetchSaga),
     fork(PostSaga),
