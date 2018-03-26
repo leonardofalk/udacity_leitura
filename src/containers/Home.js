@@ -8,32 +8,24 @@ import _ from 'lodash';
 
 import styles from './styles/Home';
 import LoadingSpinner from '../components/LoadingSpinner';
-import PostFilter from '../components/PostFilter';
 import PostCard from '../components/PostCard';
 import PostActions from '../redux/reducers/Post';
-import CategoryActions from '../redux/reducers/Category';
 import VoteActions from '../redux/reducers/Vote';
 import DeletePostActions from '../redux/reducers/DeletePost';
 
 class Home extends Component {
-  state = {
-    categorySelected: null,
-  }
+  state = {}
 
   componentDidMount = () => {
-    const { fetchPosts, fetchCategories } = this.props;
+    const { fetchPosts } = this.props;
 
     fetchPosts();
-    fetchCategories();
   }
 
-  onChangeFilter = categorySelected => this.setState({ categorySelected })
-
   _renderPosts = () => {
-    const { categorySelected } = this.state;
-    const {
-      posts, onVoteUp, onVoteDown, deletePost,
-    } = this.props;
+    const { match, posts } = this.state;
+    const { onVoteUp, onVoteDown, deletePost } = this.props;
+    const categorySelected = match.params.category;
 
     const filteredPosts = (_.isEmpty(categorySelected)
       ? posts
@@ -52,7 +44,7 @@ class Home extends Component {
   }
 
   render = () => {
-    const { categories, posts } = this.state;
+    const { posts } = this.state;
 
     if (_.isEmpty(posts)) {
       return (
@@ -67,7 +59,6 @@ class Home extends Component {
         <Col>
           <Row style={styles.row}>
             <Col>
-              <PostFilter categories={categories} onChange={this.onChangeFilter} />
               <Link to="/posts/new">
                 <Button type="dashed" style={styles.newPostButton}>
                 New Post
@@ -85,13 +76,11 @@ class Home extends Component {
 }
 
 const mapStateToProps = state => ({
-  categories: _.get(state, 'category.payload.categories', []),
   posts: _.get(state, 'post.payload.posts', []),
 });
 
 const mapDispatchToProps = dispatch => ({
   fetchPosts: () => dispatch(PostActions.postRequest()),
-  fetchCategories: () => dispatch(CategoryActions.categoryRequest()),
   onVoteUp: ({ id }) => () => dispatch(VoteActions.voteRequest({ id, option: 'upVote' })),
   onVoteDown: ({ id }) => () => dispatch(VoteActions.voteRequest({ id, option: 'downVote' })),
   deletePost: ({ id }) => () => dispatch(DeletePostActions.deletePostRequest({ id })),
@@ -104,7 +93,6 @@ Home.getDerivedStateFromProps = (nextProps, prevState) => ({
 
 Home.propTypes = {
   fetchPosts: PropTypes.func.isRequired,
-  fetchCategories: PropTypes.func.isRequired,
   onVoteUp: PropTypes.func.isRequired,
   onVoteDown: PropTypes.func.isRequired,
   deletePost: PropTypes.func.isRequired,

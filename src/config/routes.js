@@ -13,9 +13,9 @@ const AsyncPostCommentEdit = AsyncComponent(() => import('../containers/PostComm
 const Routes = () => (
   <Switch>
     <Route exact path="/" component={AsyncHome} />
-    <Route exact path="/posts" component={AsyncHome} />
+    <Route exact path="/:category" component={AsyncHome} />
     <Route exact path="/posts/new" component={AsyncPostNew} />
-    <Route exact path="/posts/:id" component={AsyncPostShow} />
+    <Route exact path="/:category/:id" component={AsyncPostShow} />
     <Route exact path="/posts/:id/edit" component={AsyncPostEdit} />
     <Route exact path="/posts/:id/comments/new" component={AsyncPostCommentNew} />
     <Route exact path="/comments/:id/edit" component={AsyncPostCommentEdit} />
