@@ -46,6 +46,8 @@ yarn g reducer NAME   # creates a redux reducer with actions included using redu
 yarn g saga NAME      # creates a redux saga, which run async callbacks in redux
 ```
 
+This will create the resource typed, usually with some tests.
+
 ### Build
 
 ```shell
