@@ -29,7 +29,7 @@ const PostCard = props => (
   >
     <Badge
       showZero
-      count={parseInt(props.likeCount, 10)}
+      count={parseInt(props.voteScore, 10)}
       style={styles.badgeBig}
     />
     <Card.Meta
@@ -47,11 +47,11 @@ PostCard.propTypes = {
   onVoteUp: PropTypes.func.isRequired,
   onVoteDown: PropTypes.func.isRequired,
   deleteComment: PropTypes.func.isRequired,
-  likeCount: PropTypes.number,
+  voteScore: PropTypes.number,
 };
 
 PostCard.defaultProps = {
-  likeCount: 0,
+  voteScore: 0,
 };
 
 export default PostCard;

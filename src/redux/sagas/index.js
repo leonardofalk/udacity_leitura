@@ -1,11 +1,11 @@
 import { fork, all } from 'redux-saga/effects';
-import CommentUpdateSaga from './CommentUpdate';
 
-
-import FetchCommentSaga from './FetchComment';
 import CategorySaga from './Category';
 import CommentCreateSaga from './CommentCreate';
+import CommentUpdateSaga from './CommentUpdate';
+import CommentVoteSaga from './CommentVote';
 import DeletePostSaga from './DeletePost';
+import FetchCommentSaga from './FetchComment';
 import PostCreateSaga from './PostCreate';
 import PostFetchSaga from './PostFetch';
 import PostSaga from './Post';
@@ -15,8 +15,8 @@ import VoteSaga from './Vote';
 
 export default function* rootSaga() {
   yield all([
+    fork(CommentVoteSaga),
     fork(CommentUpdateSaga),
-
     fork(FetchCommentSaga),
     fork(CategorySaga),
     fork(CommentCreateSaga),
