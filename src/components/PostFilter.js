@@ -3,20 +3,22 @@ import PropTypes from 'prop-types';
 import { Select } from 'antd';
 
 import styles from './styles/PostFilter';
-import { capitalize } from '../lib/StringUtils';
+
+const { Option } = Select;
 
 const PostFilter = ({ categories, ...rest }) => (
   <Select
     {...rest}
     style={styles.select}
-    placeholder="Filter by category..."
+    placeholder="Sort by..."
     allowClear
   >
-    {categories.map(option => (
-      <Select.Option key={option.key} value={option.id}>
-        {capitalize(option.name)}
-      </Select.Option>
-    ))}
+    <Option key="likeCount" value="likeCount">
+      Vote Score
+    </Option>
+    <Option key="timestamp" value="timestamp">
+      Date and Time
+    </Option>
   </Select>
 );
 

@@ -5,7 +5,7 @@ export default ({
   },
 
   newPostButton: {
-    // marginLeft: 10,
+    marginLeft: 10,
   },
 
   row: {

@@ -41,12 +41,12 @@ const PostCard = props => (
       count={parseInt(props.likeCount, 10)}
       style={props.bigMode ? styles.badgeBig : styles.badgeSmall}
     />
-    <Link to={`/posts/${props.id}`}>
+    <Link to={`/${props.category}/${props.id}`}>
       <Card.Meta
         title={
           <div>
             <h3>{props.title}</h3>
-            <small>by {props.author}</small>
+            <small>{props.timeAgoInWords} by <b>{props.author}</b></small>
           </div>
         }
         description={props.bigMode ? props.description : truncate(props.description, 200)}
@@ -60,6 +60,7 @@ PostCard.propTypes = {
   id: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
+  category: PropTypes.string.isRequired,
   author: PropTypes.string.isRequired,
   onVoteUp: PropTypes.func.isRequired,
   onVoteDown: PropTypes.func.isRequired,

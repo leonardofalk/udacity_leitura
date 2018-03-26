@@ -16,8 +16,8 @@ const Routes = () => (
     <Route exact path="/" component={AsyncHome} />
     <Route exact path="/404" component={AsyncNotFound} />
     <Route exact path="/:category" component={AsyncHome} />
-    <Route exact path="/posts/new" component={AsyncPostNew} />
     <Route exact path="/:category/:id" component={AsyncPostShow} />
+    <Route exact path="/posts/new" component={AsyncPostNew} />
     <Route exact path="/posts/:id/edit" component={AsyncPostEdit} />
     <Route exact path="/posts/:id/comments/new" component={AsyncPostCommentNew} />
     <Route exact path="/comments/:id/edit" component={AsyncPostCommentEdit} />

@@ -9,12 +9,15 @@ import _ from 'lodash';
 import styles from './styles/Home';
 import LoadingSpinner from '../components/LoadingSpinner';
 import PostCard from '../components/PostCard';
+import PostFilter from '../components/PostFilter';
 import PostActions from '../redux/reducers/Post';
 import VoteActions from '../redux/reducers/Vote';
 import DeletePostActions from '../redux/reducers/DeletePost';
 
 class Home extends Component {
-  state = {}
+  state = {
+    orderBy: 'likeCount',
+  }
 
   componentDidMount = () => {
     const { fetchPosts } = this.props;
@@ -22,18 +25,20 @@ class Home extends Component {
     fetchPosts();
   }
 
+  onChangeSort = (orderBy = 'likeCount') => this.setState({ orderBy });
+
   _renderPosts = () => {
-    const { match, posts } = this.state;
+    const { match, posts, orderBy } = this.state;
     const { onVoteUp, onVoteDown, deletePost } = this.props;
     const categorySelected = match.params.category;
 
-    const filteredPosts = (_.isEmpty(categorySelected)
+    const filteredPosts = _.sortBy((_.isEmpty(categorySelected)
       ? posts
       : posts.filter(post => (
         post.category === categorySelected
-      )));
+      ))), [orderBy]);
 
-    return filteredPosts.map(postProps => (
+    return _.reverse(filteredPosts).map(postProps => (
       <PostCard
         {...postProps}
         onVoteUp={onVoteUp(postProps)}
@@ -59,6 +64,7 @@ class Home extends Component {
         <Col>
           <Row style={styles.row}>
             <Col>
+              <PostFilter onChange={this.onChangeSort} />
               <Link to="/posts/new">
                 <Button type="dashed" style={styles.newPostButton}>
                 New Post

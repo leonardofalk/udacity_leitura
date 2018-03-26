@@ -72,9 +72,13 @@ const updatePost = async ({ id, title, body }) => api.put(`/posts/${id}`, { titl
 const deletePost = async ({ id }) => api.delete(`/posts/${id}`);
 
 const getPostComments = async (postId) => {
-  const { data } = await api.get(`posts/${postId}/comments`);
+  const response = await api.get(`posts/${postId}/comments`);
 
-  return data;
+  if (response.ok) {
+    return response.data;
+  }
+
+  throw response.error;
 };
 
 const getPostWithComments = async ({ id }) => {
