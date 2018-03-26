@@ -1,4 +1,5 @@
 export * from './components/Footer';
+export * from './components/NotFound';
 export * from './components/Comment';
 export * from './components/CommentForm';
 export * from './components/PostForm';

@@ -52,9 +52,13 @@ const getPosts = async () => {
 };
 
 const getPost = async (id) => {
-  const { data } = await api.get(`posts/${id}`);
+  const response = await api.get(`posts/${id}`);
 
-  return mapApiPostToProps(data);
+  if (response.ok) {
+    return mapApiPostToProps(response.data);
+  }
+
+  throw response.error;
 };
 
 const createPost = async props => api.post('/posts', Object.assign(props, {
@@ -107,8 +111,8 @@ const voteComment = async ({ id, option }) => api.post(`/comments/${id}`, { opti
 const upVoteComment = async ({ id }) => voteComment({ id, option: 'upVote' });
 const downVoteComment = async ({ id }) => voteComment({ id, option: 'downVote' });
 
-const pushHistory = () => {
-  window.location.href = '/';
+const pushHistory = (location = '/') => {
+  window.location.href = location;
 };
 
 export {
