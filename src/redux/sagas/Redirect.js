@@ -14,6 +14,7 @@ export function* getNotFound() {
 
 export default function* redirectSaga() {
   yield all([
+    takeLatest('DELETE_POST_SUCCESS', getRedirect),
     takeLatest('POST_UPDATE_SUCCESS', getRedirect),
     takeLatest('POST_CREATE_SUCCESS', getRedirect),
     takeLatest('COMMENT_CREATE_SUCCESS', getRedirect),

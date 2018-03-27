@@ -35,11 +35,22 @@ Root.propTypes = {
   fetchCategories: PropTypes.func.isRequired,
 };
 
+/*
+ * Aqui ficam sendo sincronizadas categorias retornadas
+ * pelo fetchCategories, e adicionadas ao estado,
+ * embora seja uma maneira preguiçosa e ineficaz de atualizar o estado
+ * do Root, funciona bem para esse projeto.
+ */
 Root.getDerivedStateFromProps = (nextProps, prevState) => ({
   ...prevState,
   ...nextProps,
 });
 
+/*
+ * Embora haja possibilidade de escrever em forma de objeto,
+ * é bom que todos tenham a mesma semântica para o bem
+ * da manutenção do projeto.
+ */
 const mapDispatchToProps = dispatch => ({
   fetchCategories: () => dispatch(CategoryActions.categoryRequest()),
 });

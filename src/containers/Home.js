@@ -49,9 +49,9 @@ class Home extends Component {
   }
 
   render = () => {
-    const { posts } = this.state;
+    const { posts, fetching } = this.state;
 
-    if (_.isEmpty(posts)) {
+    if (fetching) {
       return (
         <div style={styles.loadingSpinner}>
           <LoadingSpinner />
@@ -72,9 +72,17 @@ class Home extends Component {
               </Link>
             </Col>
           </Row>
-          <Masonry style={styles.masonry}>
-            {this._renderPosts()}
-          </Masonry>
+          {
+            _.isEmpty(posts)
+            ? (
+              <h3 style={styles.noPostsMessage}>There are no posts to show.</h3>
+              )
+            : (
+              <Masonry style={styles.masonry}>
+                {this._renderPosts()}
+              </Masonry>
+            )
+          }
         </Col>
       </Row>
     );
@@ -83,6 +91,7 @@ class Home extends Component {
 
 const mapStateToProps = state => ({
   posts: _.get(state, 'post.payload.posts', []),
+  fetching: _.get(state, 'post.fetching', false),
 });
 
 const mapDispatchToProps = dispatch => ({

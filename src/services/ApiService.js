@@ -52,13 +52,13 @@ const getPosts = async () => {
 };
 
 const getPost = async (id) => {
-  const response = await api.get(`posts/${id}`);
+  try {
+    const response = await api.get(`posts/${id}`);
 
-  if (response.ok) {
-    return mapApiPostToProps(response.data);
+    return { ok: response.ok, post: mapApiPostToProps(response.data) };
+  } catch (error) {
+    return { ok: false, error };
   }
-
-  throw response.error;
 };
 
 const createPost = async props => api.post('/posts', Object.assign(props, {
@@ -72,22 +72,22 @@ const updatePost = async ({ id, title, body }) => api.put(`/posts/${id}`, { titl
 const deletePost = async ({ id }) => api.delete(`/posts/${id}`);
 
 const getPostComments = async (postId) => {
-  const response = await api.get(`posts/${postId}/comments`);
+  try {
+    const response = await api.get(`posts/${postId}/comments`);
 
-  if (response.ok) {
-    return response.data;
+    return { ok: response.ok, comments: response.data };
+  } catch (error) {
+    return { ok: false, error };
   }
-
-  throw response.error;
 };
 
 const getPostWithComments = async ({ id }) => {
   try {
-    const postInfo = await getPost(id);
-    const comments = await getPostComments(id);
-    const post = { ...postInfo, comments };
+    const postResponse = await getPost(id);
+    const commentResponse = await getPostComments(id);
+    const post = { ...postResponse.post, comments: commentResponse.comments };
 
-    return { ok: true, payload: { post } };
+    return { ok: postResponse.ok && commentResponse.ok, payload: { post } };
   } catch (error) {
     return { ok: false, error };
   }

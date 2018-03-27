@@ -12,4 +12,9 @@ export default ({
     marginLeft: 10,
     marginTop: 10,
   },
+
+  noPostsMessage: {
+    marginLeft: 10,
+    marginTop: 30,
+  },
 });

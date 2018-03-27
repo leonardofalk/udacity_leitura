@@ -4,7 +4,7 @@ import { timeAgoInWords } from '../lib/DateTimeUtils';
 
 const mapApiPostToProps = (attrs) => {
   if (isEmpty(attrs)) {
-    throw { error: 'Empty map api post to props' };
+    throw new Error('Empty map api post to props');
   }
 
   return {

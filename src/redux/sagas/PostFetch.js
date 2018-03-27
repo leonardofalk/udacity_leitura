@@ -25,7 +25,7 @@ export default function* PostFetchSaga() {
   yield all([
     takeLatest('POST_FETCH_REQUEST', getPostFetch),
     takeLatest('VOTE_SUCCESS', getPostFetch),
-    takeLatest('DELETE_POST_SUCCESS', getPostFetch),
+    // takeLatest('DELETE_POST_SUCCESS', getPostFetch),
     takeLatest('COMMENT_VOTE_SUCCESS', action => (
       getPostFetch({ ...action, data: { id: action.payload.parentId } }))),
     takeLatest('DELETE_COMMENT_SUCCESS', action => (
